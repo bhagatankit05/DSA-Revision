@@ -1,0 +1,37 @@
+//without using multiplication, division, and mod operator.
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int divide(int dividend, int divisor) {
+    // Handle overflow case
+    if (dividend == INT_MIN && divisor == -1) return INT_MAX;
+
+    // Determine sign
+    bool negative = (dividend < 0) ^ (divisor < 0);
+
+    long long a = llabs((long long)dividend);
+    long long b = llabs((long long)divisor);
+    long long result = 0;
+
+    while (a >= b) {
+        long long temp = b, multiple = 1;
+       
+        while ((temp << 1) <= a) {
+            temp <<= 1;
+            multiple <<= 1;
+        }
+        a -= temp;
+        result += multiple;
+    }
+
+   
+    return negative ? -result : result;
+}
+
+int main() {
+    cout << divide(10, 3) << endl;   
+    cout << divide(7, -3) << endl;   
+    cout << divide(-15, 2) << endl;  
+}
